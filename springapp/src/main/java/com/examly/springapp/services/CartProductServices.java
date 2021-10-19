@@ -25,28 +25,16 @@ public class CartProductServices {
     }
 
     public CartProductModel findByProductCart(ProductModel product, CartModel cart) {
-        CartProductModel cartProductModel = cartProductRepository.findByProductAndCart(product,cart);
+        CartProductModel cartProductModel = cartProductRepository.findByProductAndCart(product.getProductId(), cart.getCartId());
         return cartProductModel;
     }
 
     public boolean existsProductCart(ProductModel product, CartModel cart){
-        return cartProductRepository.existsByProductAndCart(product,cart);
+        return cartProductRepository.existsByProductAndCart(product.getProductId(), cart.getCartId());
     }
 
     public List<CartProductModel> findByCartId(CartModel cartId) {
-        return cartProductRepository.findAllByCart(cartId);
-    }
-
-    public CartProductModel findByCartAndProduct(CartModel cartModel, ProductModel productModel) {
-        return cartProductRepository.findByCartAndProduct(cartModel,productModel);
-    }
-
-    public void removeProduct(CartModel cartModel, int cartProductId) {
-        List<CartProductModel> cartProductModelList = cartModel.getCartProductModel();
-        cartProductModelList.removeIf(c -> c.getId().equals(cartProductId));
-        cartModel.setCartProductModel(cartProductModelList);
-        cartRepository.save(cartModel);
-        cartProductRepository.deleteById(cartProductId);
+        return cartProductRepository.findAllByCart(cartId.getCartId());
     }
 
 

@@ -7,6 +7,7 @@ import java.util.List;
 
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 
 @Entity
 @Table(name="cart")
@@ -27,7 +28,7 @@ public class CartModel {
     @JoinColumn(name="user_id")
     private UserModel user;
 
-    @OneToMany(mappedBy="cart",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy="cart",orphanRemoval = true, cascade = CascadeType.ALL)
     @JsonBackReference
     private List<CartProductModel> cartProductModel = new ArrayList<>();
 
@@ -41,8 +42,9 @@ public class CartModel {
         return user;
     }
 
-    public void setUser(UserModel user) {
+    public CartModel setUser(UserModel user) {
         this.user = user;
+        return this;
     }
 
 
@@ -50,31 +52,33 @@ public class CartModel {
         return price;
     }
 
-    public void setPrice(String price) {
+    public CartModel setPrice(String price) {
         this.price = price;
+        return this;
     }
 
     public int getCartId() { return cartId; }
-
-    public void setCartId(int cartId) {
-        this.cartId = cartId;
-    }
 
     public int getQuantity() {
         return Quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public CartModel setQuantity(int quantity) {
         Quantity = quantity;
+        return this;
     }
 
     public List<CartProductModel> getCartProductModel() {
         return cartProductModel;
     }
 
-    public void setCartProductModel(List<CartProductModel> cartProductModel) {
+    public CartModel setCartProductModel(List<CartProductModel> cartProductModel) {
         this.cartProductModel = cartProductModel;
+        return this;
     }
 
-
+    @Transactional
+    public void removeProduct(ProductModel product) {
+        cartProductModel.removeIf(cartProduct -> cartProduct.getProduct() == product.getProductId());
+    }
 }

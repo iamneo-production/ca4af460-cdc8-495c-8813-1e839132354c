@@ -1,21 +1,23 @@
 package com.examly.spring.model;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
-@Table(name="order")
+@Table(name="order_record")
 public class OrderModel {
 	@Id
 	@Column(name="order_Id")
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int orderId;
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Integer orderId;
+
+	@Column(name="user_id")
+	private int userId;
 
 	@Column(name="product_name")
  	private String productName;
 
 	@Column(name="quantity")
-	private int quantity;
+	private Integer quantity;
 
 	@Column(name="total_price")
 	private String totalPrice;
@@ -26,65 +28,78 @@ public class OrderModel {
 	@Column(name="price")
 	private String price;
 
-	@ManyToOne(cascade = CascadeType.ALL)
-	@Column(name="user_id")
-	private List<UserModel> user;
-
-	public OrderModel() {
-		super();
-        String orderId;
-        String userId;
-        String productName;
-        String quantity;
-        String totalPrice;
-        String status;
-        String price;
-	}
-
-	public int getOrderId() {
+	public Integer getOrderId() {
 		return orderId;
 	}
-	public void setOrderId(int orderId) {
+
+	public OrderModel(Integer orderId, int userId, String productName, int quantity, String totalPrice, String status,
+                      String price) {
+		super();
 		this.orderId = orderId;
-	}
-	public String getProductName() {
-		return productName;
-	}
-	public void setProductName(String productName) {
+		this.userId = userId;
 		this.productName = productName;
-	}
-	public int getQuantity() {
-		return quantity;
-	}
-	public void setQuantity(int quantity) {
 		this.quantity = quantity;
-	}
-	public String getTotalPrice() {
-		return totalPrice;
-	}
-	public void setTotalPrice(String totalPrice) {
 		this.totalPrice = totalPrice;
-	}
-	public String getStatus() {
-		return status;
-	}
-	public void setStatus(String status) {
 		this.status = status;
-	}
-	public String getPrice() {
-		return price;
-	}
-	public void setPrice(String price) {
 		this.price = price;
 	}
 
-	public List<UserModel> getUser() {
-		return user;
+	public int getUserId() {
+		return userId;
 	}
 
-	public void setUser(List<UserModel> user) {
-		this.user = user;
+	public OrderModel setUserId(int userId) {
+		this.userId = userId;
+		return this;
 	}
 
+	public String getProductName() {
+		return productName;
+	}
+
+	public OrderModel setProductName(String productName) {
+		this.productName = productName;
+		return this;
+	}
+
+	public Integer getQuantity() {
+		return quantity;
+	}
+
+	public OrderModel setQuantity(Integer quantity) {
+		this.quantity = quantity;
+		return this;
+	}
+
+	public String getTotalPrice() {
+		return totalPrice;
+	}
+
+	public OrderModel setTotalPrice(String totalPrice) {
+		this.totalPrice = totalPrice;
+		return this;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public OrderModel setStatus(String status) {
+		this.status = status;
+		return this;
+	}
+
+	public String getPrice() {
+		return price;
+	}
+
+	public OrderModel setPrice(String price) {
+		this.price = price;
+		return this;
+	}
+
+	public OrderModel() {
+
+	}
 
 }

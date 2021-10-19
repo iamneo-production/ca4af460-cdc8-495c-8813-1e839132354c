@@ -2,9 +2,9 @@ package com.examly.spring.services;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import com.examly.spring.model.CartProductModel;
+import com.examly.spring.model.CartTempModel;
 import com.examly.spring.model.ProductModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,8 +38,8 @@ public class CartServices {
 			CartProductModel cartProductModel;
 			if(!cartProductServices.existsProductCart(product,cart)){
 				cartProductModel= new CartProductModel();
-				cartProductModel.setProduct(product)
-								.setCart(cart)
+				cartProductModel.setProduct(product.getProductId())
+								.setCart(cart.getCartId())
 								.setQuantity(Quantity);
 			}
 			else{
@@ -71,23 +71,55 @@ public class CartServices {
 	}
 
 
-	public List<CartProductModel> getCartItems(int userId) {
-
+	public List<CartTempModel> getCartItems(int userId) {
 		CartModel cartModel = userServices.getUserById(userId).get().getCart();
-		return cartProductServices.findByCartId(cartModel);
+		List<CartProductModel> items = cartProductServices.findByCartId(cartModel);
+		List<CartTempModel> cartTempModels = new ArrayList<>();
+//
+//	items =	[
+//		{cartProductId, cart_id, product_id, quamtity},
+//		{cartProductId, cart_id, product_id, quamtity},
+//		{cartProductId, cart_id, product_id, quamtity}
+//		]
+
+//	cartTempModels = [
+//		{getProduct(product_id), getQuantity()},
+//		{getProduct(product_id), getQuantity()},
+//		{getProduct(product_id), getQuantity()},
+//		{getProduct(product_id), getQuantity()}
+//		]
+		items.forEach(item -> cartTempModels.add(
+				new CartTempModel()
+						.setProduct(productServices.getProductByProductId(item.getProduct()))
+						.setQuantity(item.getQuantity())
+			)
+		);
+		return cartTempModels;
+	}
+
+	public List<CartModel> getAllCarts() {
+		return cartRepository.findAll();
+	}
+
+
+	public void deleteItem(CartModel cart,ProductModel product) {
+		if(cartProductServices.existsProductCart(product, cart))
+			cart.removeProduct(product);
 	}
 
 	public void deleteItem(int userId,int productId) {
-		CartModel cartModel = userServices.getUserById(userId).get().getCart();
-		ProductModel productModel = productServices.getProductByProductId(productId);
-
-		CartProductModel cartProductModel = cartProductServices.findByCartAndProduct(cartModel,productModel);
-
-		int cartProductId = cartProductModel.getId();
-
-		cartProductServices.removeProduct(cartModel,cartProductId);
+		CartModel cart = userServices.getUserById(userId).get().getCart();
+		ProductModel product = productServices.getProductByProductId(productId);
+		deleteItem(cart, product);
 	}
 
-}
-	
+	private void deleteCartItems(int userId){
+		getCartItems(userId).forEach(item -> deleteItem(userId, item.getProduct().getProductId()));
+	}
 
+	public void flush(CartModel cart){
+		cart.setPrice("0")
+				.setQuantity(0);
+		deleteCartItems(cart.getUser().getUserId());
+	}
+}

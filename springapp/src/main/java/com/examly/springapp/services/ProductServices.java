@@ -15,6 +15,9 @@ public class ProductServices {
 	@Autowired
     ProductRepository productRepository;
 
+	@Autowired
+	CartServices cartServices;
+
 	public List<ProductModel> getAllProducts() {
 		return productRepository.findAll();
 	}
@@ -41,8 +44,18 @@ public class ProductServices {
 		return false;
 	}
 
+	public void deleteProduct(ProductModel product) {
+		try{
+			cartServices.getAllCarts().forEach(cart -> cartServices.deleteItem(cart, product));
+			productRepository.deleteById(product.getProductId());
+		}
+		catch (Exception e){
+			System.out.print("Product with this product id does not exist\n" + e);
+		}
+	}
+
 	public void deleteProduct(int id) {
-		productRepository.deleteById(id);
+		deleteProduct(getProductByProductId(id));
 	}
 
     public ProductModel getProductByProductId(int productId) {

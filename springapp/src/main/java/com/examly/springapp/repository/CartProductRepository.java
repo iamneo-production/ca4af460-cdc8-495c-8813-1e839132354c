@@ -11,12 +11,12 @@ import java.util.List;
 @Repository
 public interface CartProductRepository extends JpaRepository<CartProductModel,Integer> {
 
-    boolean existsByProductAndCart(ProductModel product,CartModel cart);
+    boolean existsByProductAndCart(int product,int cart);
 
-    CartProductModel findByProductAndCart(ProductModel product, CartModel cart);
+    CartProductModel findByProductAndCart(int product, int cart);
 
-    CartProductModel findByCartAndProduct(CartModel cart,ProductModel product);
+    CartProductModel findByCartAndProduct(int cart, int product);
 
-    List<CartProductModel> findAllByCart(CartModel cartId);
+    List<CartProductModel> findAllByCart(int cartId);
 
 }

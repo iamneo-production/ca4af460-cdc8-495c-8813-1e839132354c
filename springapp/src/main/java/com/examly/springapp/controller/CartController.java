@@ -3,6 +3,7 @@ package com.examly.spring.controller;
 import java.util.List;
 
 import com.examly.spring.model.CartProductModel;
+import com.examly.spring.model.CartTempModel;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.*;
@@ -26,12 +27,12 @@ public class CartController {
 	}
 	
 	@GetMapping("/cart/{user_id}")
-	public List<CartProductModel> showCart(@PathVariable int user_id){
+	public List<CartTempModel> showCart(@PathVariable int user_id){
 		return cartServices.getCartItems(user_id);
 	}
 
 	@PostMapping(value="/cart/delete/{user_id}")
-	public void deleteCartItem(@RequestParam("product_id") int product_id,@PathVariable int user_id) {
+	public void deleteCartItem(@RequestParam("product_id") int product_id, @PathVariable int user_id) {
 		cartServices.deleteItem(user_id,product_id);
 	}
 }

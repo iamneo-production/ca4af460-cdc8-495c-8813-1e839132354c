@@ -4,7 +4,6 @@ package com.examly.spring.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name="user")
@@ -35,10 +34,6 @@ public class UserModel {
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
 	@JsonBackReference
 	private CartModel cart;
-
-	@OneToMany(mappedBy="user" ,cascade = CascadeType.ALL)
-	@Column(name="order_list")
-	private List<OrderModel> orderList;
 
 	public UserModel() {
 		
@@ -107,11 +102,5 @@ public class UserModel {
 	}
 	public void setCart(CartModel cart) {
 		this.cart = cart;
-	}
-	public List<OrderModel> getOrderList() {
-		return orderList;
-	}
-	public void setOrderList(List<OrderModel> orderList) {
-		this.orderList = orderList;
 	}
 }
