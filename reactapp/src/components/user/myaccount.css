@@ -1,0 +1,40 @@
+*{
+    margin: 0rem;
+    padding: 0rem;
+    box-sizing: border-box;
+  }
+
+.body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  color: #222;
+  }
+
+  .boxx{
+      margin: 0mm;
+      padding: 5%;
+      margin-left: 7%;
+      box-shadow: 30mm;
+      display: block;
+  }
+  .imgstyle{
+    margin-top: 5%;
+    margin-left: 8%;
+  }
+  .buttons{
+  width: 50mm;
+  background: #222;
+  margin-left: 10%;
+  text-align: center;
+  margin-top: 5mm;
+  }
+  .buttonb{
+  width: 50mm;
+  background: #222;
+  margin-left: 10%;
+  text-align: center;
+  }
+.editp{
+  background-color: black;
+  width: 35mm;
+}
