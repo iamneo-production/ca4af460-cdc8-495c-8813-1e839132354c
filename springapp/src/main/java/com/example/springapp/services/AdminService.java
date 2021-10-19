@@ -30,12 +30,9 @@ public class AdminService {
         productRepository.save(data);
     }
 
-//    public void productSave() {
-//
-//    }
+
 
     public List<ProductModel> productEditData(String id) {
-        //Collection.singleton id ??
         Iterable<ProductModel> iterable =productRepository.findAllById(Collections.singleton(id));
         ArrayList<ProductModel> arrayList=new ArrayList<>();
         Iterator<ProductModel> it=iterable.iterator();
@@ -48,11 +45,6 @@ public class AdminService {
 
     public void productEdit(ProductModel productModel, String id) {
         productRepository.save(productModel);
-//        List<ProductModel> list=new ArrayList<>();
-//        iterator.forEachRemaining(list::add);
-//        for (int i = 0; i < list.size(); i++) {
-//            list.set(i,productModel);
-//        }
     }
 
     public List<OrderModel> getAllOrders() {
