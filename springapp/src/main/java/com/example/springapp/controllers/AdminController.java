@@ -35,7 +35,6 @@ public class AdminController {
     }
 
     @GetMapping("/admin/productEdit/{id}")
-    // Returns all the product with {id}
     public List<ProductModel> productEditData(@PathVariable String id)
     {
         return adminService.productEditData(id);
@@ -50,8 +49,6 @@ public class AdminController {
     @GetMapping("/admin/orders")
     public List<OrderModel> getAllOrders()
     {
-
-        // API Endpoints last one in admin | NOT PRESENT in Controllers
         return adminService.getAllOrders();
     }
 
