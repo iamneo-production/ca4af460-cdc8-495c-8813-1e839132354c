@@ -85,6 +85,7 @@ public class UserModel {
     }
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private String email;
     private String password;
     private String username;
