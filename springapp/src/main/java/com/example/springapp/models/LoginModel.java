@@ -5,6 +5,14 @@ import javax.persistence.Id;
 
 @Entity
 public class LoginModel {
+    
+    
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private String email;
+    private String password;
+    
+    
     public LoginModel() {
     }
 
@@ -28,11 +36,6 @@ public class LoginModel {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private String email;
-    private String password;
 
 
 }
