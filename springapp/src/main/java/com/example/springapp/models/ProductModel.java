@@ -68,6 +68,7 @@ public class ProductModel {
     }
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private String productId;
     private String imageUrl;
     private String productName;
