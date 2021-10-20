@@ -48,7 +48,6 @@ public class AdminService {
     }
 
     public List<OrderModel> getAllOrders() {
-        // returns all the orders from the orderModel table
         Iterator<OrderModel> it=orderRepository.findAll().iterator();
         List<OrderModel> list=new ArrayList<>();
         it.forEachRemaining(list::add);
