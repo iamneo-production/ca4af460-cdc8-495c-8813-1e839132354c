@@ -78,6 +78,7 @@ public class OrderModel {
     }
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private String orderId;
     private String userId;
     private String productName;
