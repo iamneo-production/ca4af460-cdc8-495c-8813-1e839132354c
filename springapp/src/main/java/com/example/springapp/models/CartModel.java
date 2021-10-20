@@ -61,6 +61,7 @@ public class CartModel {
     }
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private String cartItemID;
     @ManyToOne
     @JoinColumn(name = "user_id_email")
