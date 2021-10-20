@@ -30,6 +30,7 @@ public class LoginModel {
     }
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private String email;
     private String password;
 
